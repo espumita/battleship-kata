@@ -13,18 +13,24 @@ namespace BattleshipKata {
         }
 
         public void Add(Boat boat) {
-            if (boat is Carrier) {
-                if (carriers.Count >= 2) throw new PlayerCannotHasMoreBoatsOfThatTypeException();
-                carriers.Add((Carrier) boat);
-            }
-            if (boat is Destroyer) {
-                if (destroyers.Count >= 3) throw new PlayerCannotHasMoreBoatsOfThatTypeException();
-                destroyers.Add((Destroyer) boat);
-            }
-            if (boat is GunShip) {
-                if (gunships.Count >= 5) throw new PlayerCannotHasMoreBoatsOfThatTypeException();
-                gunships.Add((GunShip) boat);
-            }
+            if (boat is Carrier carrier) TryToAdd(carrier);
+            if (boat is Destroyer destroyer) TryToAdd(destroyer);
+            if (boat is GunShip gunShip) TryToAdd(gunShip);
+        }
+
+        private void TryToAdd(Carrier carrier) {
+            if (carriers.Count >= 2) throw new PlayerCannotHasMoreBoatsOfThatTypeException();
+            carriers.Add(carrier);
+        }
+
+        private void TryToAdd(Destroyer destroyer) {
+            if (destroyers.Count >= 3) throw new PlayerCannotHasMoreBoatsOfThatTypeException();
+            destroyers.Add(destroyer);
+        }
+
+        private void TryToAdd(GunShip gunShip) {
+            if (gunships.Count >= 5) throw new PlayerCannotHasMoreBoatsOfThatTypeException();
+            gunships.Add(gunShip);
         }
 
         public int NumberOfBoats() {

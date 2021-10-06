@@ -4,7 +4,6 @@ using Xunit;
 namespace BattleshipKata.Tests {
     public class PlayerBoardTests {
 
-
         [Fact]
         public void has_2_carrier_boats() {
             var playerBoard = new PlayerBoard();
