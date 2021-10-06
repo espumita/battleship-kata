@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BattleshipKata.Exceptions;
 
 namespace BattleshipKata {
     public class PlayerBoard {

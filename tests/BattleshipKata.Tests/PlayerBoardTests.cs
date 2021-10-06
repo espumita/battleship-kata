@@ -1,4 +1,5 @@
 ﻿using System;
+using BattleshipKata.Exceptions;
 using Xunit;
 
 namespace BattleshipKata.Tests {

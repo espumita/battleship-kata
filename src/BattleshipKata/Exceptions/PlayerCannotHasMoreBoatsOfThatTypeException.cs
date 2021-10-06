@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BattleshipKata {
+namespace BattleshipKata.Exceptions {
     public class PlayerCannotHasMoreBoatsOfThatTypeException : Exception {
     }
 }
