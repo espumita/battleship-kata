@@ -59,7 +59,7 @@ namespace BattleshipKata.Tests {
 
             game.Start();
 
-            Assert.Equal(1, game.Boats());
+            Assert.Equal(20, game.Boats());
         }
 
 

@@ -38,8 +38,9 @@ namespace BattleshipKata {
         }
 
         public bool IsReady() {
-            if (carriers.Count == 2 && destroyers.Count == 3 && gunships.Count == 5) return true;
-            return false;
+            return carriers.Count == 2 
+                   && destroyers.Count == 3 
+                   && gunships.Count == 5;
         }
     }
 }

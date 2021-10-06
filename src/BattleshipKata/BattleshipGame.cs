@@ -14,14 +14,9 @@ namespace BattleshipKata {
             if (!AreAllPlayersBoardsReady()) throw new GameCannotStartUntilAllPLayersSetTheirBoatsException();
         }
 
-        private bool AreAllPlayersBoardsReady() {
-            return playerBoards.Keys.Select(playerName => playerBoards[playerName])
-                .All(playerBoard => playerBoard.IsReady());
-        }
-
         public int Boats() {
-            var aPlayer = playerBoards.Keys.First();
-            return playerBoards[aPlayer].NumberOfBoats();
+            return playerBoards.Keys.Select(playerName => playerBoards[playerName])
+                .Sum(playerBoard => playerBoard.NumberOfBoats());
         }
 
         public void AddPlayer(Player player) {
@@ -30,8 +25,13 @@ namespace BattleshipKata {
 
         public void AddBoat(Player player, Boat boat) {
             playerBoards[player.Name].Add(boat);
-            new List<Boat> { boat };
         }
+
+        private bool AreAllPlayersBoardsReady() {
+            return playerBoards.Keys.Select(playerName => playerBoards[playerName])
+                .All(playerBoard => playerBoard.IsReady());
+        }
+
     }
 
 }
