@@ -2,18 +2,21 @@
 
 namespace BattleshipKata {
     public class PlayerBoard {
-        private List<Boat> boats;
+        private readonly List<CarrierBoat> carrierBoats;
 
         public PlayerBoard() {
-            boats = new List<Boat>();
+            carrierBoats = new List<CarrierBoat>();
         }
 
         public void Add(Boat boat) {
-            boats.Add(boat);
+            if (boat is CarrierBoat) {
+                if (carrierBoats.Count >= 4) throw new PlayerCannotHasMoreBoatsOfThatTypeException();
+                carrierBoats.Add((CarrierBoat) boat);
+            }
         }
 
-        public int NumberOfBoats() {
-            return boats.Count;
+    public int NumberOfBoats() {
+            return carrierBoats.Count;
         }
     }
 }
