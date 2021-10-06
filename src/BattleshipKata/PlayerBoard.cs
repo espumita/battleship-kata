@@ -36,5 +36,9 @@ namespace BattleshipKata {
         public int NumberOfBoats() {
             return carriers.Count + destroyers.Count + gunships.Count;
         }
+
+        public bool IsReady() {
+            return false;
+        }
     }
 }

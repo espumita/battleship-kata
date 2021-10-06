@@ -64,15 +64,26 @@ namespace BattleshipKata.Tests {
         [Fact]
         public void has_no_more_than_5_destroyers_boats() {
             var playerBoard = new PlayerBoard();
-
             playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());
+            
             Action action = () => playerBoard.Add(new GunShip());
 
             Assert.Throws<PlayerCannotHasMoreBoatsOfThatTypeException>(action);
+        }
+
+        [Fact]
+        public void set_false_when_player_is_not_ready() {
+            var playerBoard = new PlayerBoard();
+
+            var isReady = playerBoard.IsReady();
+
+            Assert.False(isReady);
+
+
         }
     }
 
