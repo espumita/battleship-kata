@@ -17,9 +17,9 @@ namespace BattleshipKata.Tests {
         [Fact]
         public void has_no_more_than_2_carrier_boats() {
             var playerBoard = new PlayerBoard();
-
             playerBoard.Add(new Carrier());
             playerBoard.Add(new Carrier());
+            
             Action action = () => playerBoard.Add(new Carrier());
 
             Assert.Throws<PlayerCannotHasMoreBoatsOfThatTypeException>(action);
@@ -39,10 +39,10 @@ namespace BattleshipKata.Tests {
         [Fact]
         public void has_no_more_than_3_destroyers_boats() {
             var playerBoard = new PlayerBoard();
-
             playerBoard.Add(new Destroyer());
             playerBoard.Add(new Destroyer());
             playerBoard.Add(new Destroyer());
+            
             Action action = () => playerBoard.Add(new Destroyer());
 
             Assert.Throws<PlayerCannotHasMoreBoatsOfThatTypeException>(action);
@@ -76,14 +76,31 @@ namespace BattleshipKata.Tests {
         }
 
         [Fact]
-        public void set_false_when_player_is_not_ready() {
+        public void say_is_not_ready_when_player_is_not_ready() {
             var playerBoard = new PlayerBoard();
 
             var isReady = playerBoard.IsReady();
 
             Assert.False(isReady);
+        }
 
+        [Fact]
+        public void say_is_ready_when_player_is_ready() {
+            var playerBoard = new PlayerBoard();
+            playerBoard.Add(new Carrier());
+            playerBoard.Add(new Carrier());
+            playerBoard.Add(new Destroyer());
+            playerBoard.Add(new Destroyer());
+            playerBoard.Add(new Destroyer());
+            playerBoard.Add(new GunShip());
+            playerBoard.Add(new GunShip());
+            playerBoard.Add(new GunShip());
+            playerBoard.Add(new GunShip());
+            playerBoard.Add(new GunShip());
 
+            var isReady = playerBoard.IsReady();
+
+            Assert.True(isReady);
         }
     }
 

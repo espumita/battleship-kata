@@ -16,27 +16,46 @@ namespace BattleshipKata.Tests {
         }
 
         [Fact] 
-        public void start_the_game_with_empty_boats() {
+        public void game_cannot_start_until_all_players_set_their_boats() {
             var game = new BattleshipGame();
             var aPlayer = new Player("Yosh");
             var anotherPlayer = new Player("Bob");
             game.AddPlayer(aPlayer);
             game.AddPlayer(anotherPlayer);
 
-            game.Start();
+            Action action = () => game.Start();
 
-            Assert.Equal(0, game.Boats());
+            Assert.Throws<GameCannotStartUntilAllPLayersSetTheirBoatsException>(action);
         }
 
         [Fact]
-        public void start_the_game_with_a_player_boats() {
+        public void start_the_game_with_all_players_boats() {
             var game = new BattleshipGame();
             var aPlayer = new Player("Yosh");
             var anotherPlayer = new Player("Bob");
             game.AddPlayer(aPlayer);
             game.AddPlayer(anotherPlayer);
-            var aCarrierBoat = new Carrier();
-            game.AddBoat(aPlayer, aCarrierBoat);
+            game.AddBoat(aPlayer, new Carrier());
+            game.AddBoat(aPlayer, new Carrier());
+            game.AddBoat(aPlayer, new Destroyer());
+            game.AddBoat(aPlayer, new Destroyer());
+            game.AddBoat(aPlayer, new Destroyer());
+            game.AddBoat(aPlayer, new GunShip());
+            game.AddBoat(aPlayer, new GunShip());
+            game.AddBoat(aPlayer, new GunShip());
+            game.AddBoat(aPlayer, new GunShip());
+            game.AddBoat(aPlayer, new GunShip());
+
+            game.AddBoat(anotherPlayer, new Carrier());
+            game.AddBoat(anotherPlayer, new Carrier());
+            game.AddBoat(anotherPlayer, new Destroyer());
+            game.AddBoat(anotherPlayer, new Destroyer());
+            game.AddBoat(anotherPlayer, new Destroyer());
+            game.AddBoat(anotherPlayer, new GunShip());
+            game.AddBoat(anotherPlayer, new GunShip());
+            game.AddBoat(anotherPlayer, new GunShip());
+            game.AddBoat(anotherPlayer, new GunShip());
+            game.AddBoat(anotherPlayer, new GunShip());
 
             game.Start();
 
