@@ -35,33 +35,26 @@ namespace BattleshipKata.Tests {
             var anotherPlayer = new Player("Bob");
             game.AddPlayer(aPlayer);
             game.AddPlayer(anotherPlayer);
-            game.AddBoat(aPlayer, new Carrier());
-            game.AddBoat(aPlayer, new Carrier());
-            game.AddBoat(aPlayer, new Destroyer());
-            game.AddBoat(aPlayer, new Destroyer());
-            game.AddBoat(aPlayer, new Destroyer());
-            game.AddBoat(aPlayer, new GunShip());
-            game.AddBoat(aPlayer, new GunShip());
-            game.AddBoat(aPlayer, new GunShip());
-            game.AddBoat(aPlayer, new GunShip());
-            game.AddBoat(aPlayer, new GunShip());
-
-            game.AddBoat(anotherPlayer, new Carrier());
-            game.AddBoat(anotherPlayer, new Carrier());
-            game.AddBoat(anotherPlayer, new Destroyer());
-            game.AddBoat(anotherPlayer, new Destroyer());
-            game.AddBoat(anotherPlayer, new Destroyer());
-            game.AddBoat(anotherPlayer, new GunShip());
-            game.AddBoat(anotherPlayer, new GunShip());
-            game.AddBoat(anotherPlayer, new GunShip());
-            game.AddBoat(anotherPlayer, new GunShip());
-            game.AddBoat(anotherPlayer, new GunShip());
+            AddAllBoats(game, aPlayer);
+            AddAllBoats(game, anotherPlayer);
 
             game.Start();
 
             Assert.Equal(20, game.Boats());
         }
 
+        private static void AddAllBoats(BattleshipGame game, Player player) {
+            game.AddBoat(player, new Carrier());
+            game.AddBoat(player, new Carrier());
+            game.AddBoat(player, new Destroyer());
+            game.AddBoat(player, new Destroyer());
+            game.AddBoat(player, new Destroyer());
+            game.AddBoat(player, new GunShip());
+            game.AddBoat(player, new GunShip());
+            game.AddBoat(player, new GunShip());
+            game.AddBoat(player, new GunShip());
+            game.AddBoat(player, new GunShip());
+        }
 
     }
 
