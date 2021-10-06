@@ -10,7 +10,7 @@ namespace BattleshipKata {
         }
 
         public void Start() {
-
+            if (playerBoards.Keys.Count < 2) throw new GameCannotStartWithAtLeastTwoPlayersException();
         }
 
         public int Boats() {
