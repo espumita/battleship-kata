@@ -35,7 +35,7 @@ namespace BattleshipKata.Tests {
             var anotherPlayer = new Player("Bob");
             game.AddPlayer(aPlayer);
             game.AddPlayer(anotherPlayer);
-            var aCarrierBoat = new CarrierBoat();
+            var aCarrierBoat = new Carrier();
             game.AddBoat(aPlayer, aCarrierBoat);
 
             game.Start();

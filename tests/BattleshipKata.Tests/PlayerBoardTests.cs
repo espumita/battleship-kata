@@ -6,26 +6,22 @@ namespace BattleshipKata.Tests {
 
 
         [Fact]
-        public void has_4_carrier_boats() {
+        public void has_2_carrier_boats() {
             var playerBoard = new PlayerBoard();
 
-            playerBoard.Add(new CarrierBoat());
-            playerBoard.Add(new CarrierBoat());
-            playerBoard.Add(new CarrierBoat());
-            playerBoard.Add(new CarrierBoat());
+            playerBoard.Add(new Carrier());
+            playerBoard.Add(new Carrier());
 
-            Assert.Equal(4, playerBoard.NumberOfBoats());
+            Assert.Equal(2, playerBoard.NumberOfBoats());
         }
 
         [Fact]
-        public void has_no_more_than_4_carrier_boats() {
+        public void has_no_more_than_2_carrier_boats() {
             var playerBoard = new PlayerBoard();
 
-            playerBoard.Add(new CarrierBoat());
-            playerBoard.Add(new CarrierBoat());
-            playerBoard.Add(new CarrierBoat());
-            playerBoard.Add(new CarrierBoat());
-            Action action = () => playerBoard.Add(new CarrierBoat());
+            playerBoard.Add(new Carrier());
+            playerBoard.Add(new Carrier());
+            Action action = () => playerBoard.Add(new Carrier());
 
             Assert.Throws<PlayerCannotHasMoreBoatsOfThatTypeException>(action);
         }
@@ -34,9 +30,9 @@ namespace BattleshipKata.Tests {
         public void has_3_destroyers_boats() {
             var playerBoard = new PlayerBoard();
 
-            playerBoard.Add(new DestroyerBoat());
-            playerBoard.Add(new DestroyerBoat());
-            playerBoard.Add(new DestroyerBoat());
+            playerBoard.Add(new Destroyer());
+            playerBoard.Add(new Destroyer());
+            playerBoard.Add(new Destroyer());
 
             Assert.Equal(3, playerBoard.NumberOfBoats());
         }
@@ -45,10 +41,37 @@ namespace BattleshipKata.Tests {
         public void has_no_more_than_3_destroyers_boats() {
             var playerBoard = new PlayerBoard();
 
-            playerBoard.Add(new DestroyerBoat());
-            playerBoard.Add(new DestroyerBoat());
-            playerBoard.Add(new DestroyerBoat());
-            Action action = () => playerBoard.Add(new DestroyerBoat());
+            playerBoard.Add(new Destroyer());
+            playerBoard.Add(new Destroyer());
+            playerBoard.Add(new Destroyer());
+            Action action = () => playerBoard.Add(new Destroyer());
+
+            Assert.Throws<PlayerCannotHasMoreBoatsOfThatTypeException>(action);
+        }
+
+        [Fact]
+        public void has_5_gun_ship_boats() {
+            var playerBoard = new PlayerBoard();
+
+            playerBoard.Add(new GunShip());
+            playerBoard.Add(new GunShip());
+            playerBoard.Add(new GunShip());
+            playerBoard.Add(new GunShip());
+            playerBoard.Add(new GunShip());
+
+            Assert.Equal(5, playerBoard.NumberOfBoats());
+        }
+
+        [Fact]
+        public void has_no_more_than_5_destroyers_boats() {
+            var playerBoard = new PlayerBoard();
+
+            playerBoard.Add(new GunShip());
+            playerBoard.Add(new GunShip());
+            playerBoard.Add(new GunShip());
+            playerBoard.Add(new GunShip());
+            playerBoard.Add(new GunShip());
+            Action action = () => playerBoard.Add(new GunShip());
 
             Assert.Throws<PlayerCannotHasMoreBoatsOfThatTypeException>(action);
         }
