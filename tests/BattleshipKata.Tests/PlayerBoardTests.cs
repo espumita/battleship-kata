@@ -29,6 +29,29 @@ namespace BattleshipKata.Tests {
 
             Assert.Throws<PlayerCannotHasMoreBoatsOfThatTypeException>(action);
         }
+
+        [Fact]
+        public void has_3_destroyers_boats() {
+            var playerBoard = new PlayerBoard();
+
+            playerBoard.Add(new DestroyerBoat());
+            playerBoard.Add(new DestroyerBoat());
+            playerBoard.Add(new DestroyerBoat());
+
+            Assert.Equal(3, playerBoard.NumberOfBoats());
+        }
+
+        [Fact]
+        public void has_no_more_than_3_destroyers_boats() {
+            var playerBoard = new PlayerBoard();
+
+            playerBoard.Add(new DestroyerBoat());
+            playerBoard.Add(new DestroyerBoat());
+            playerBoard.Add(new DestroyerBoat());
+            Action action = () => playerBoard.Add(new DestroyerBoat());
+
+            Assert.Throws<PlayerCannotHasMoreBoatsOfThatTypeException>(action);
+        }
     }
 
 }
