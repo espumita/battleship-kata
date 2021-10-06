@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31727.386
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BattleshipKata.Tests", "..\tests\BattleshipKata.Tests\BattleshipKata.Tests.csproj", "{0C0ED751-47B1-4CAE-A6D6-7F00F8509B25}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BattleshipKata", "BattleshipKata\BattleshipKata.csproj", "{A18082FE-DE1C-4FC1-8E8A-184EF558EF1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C0ED751-47B1-4CAE-A6D6-7F00F8509B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C0ED751-47B1-4CAE-A6D6-7F00F8509B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C0ED751-47B1-4CAE-A6D6-7F00F8509B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C0ED751-47B1-4CAE-A6D6-7F00F8509B25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A18082FE-DE1C-4FC1-8E8A-184EF558EF1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A18082FE-DE1C-4FC1-8E8A-184EF558EF1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A18082FE-DE1C-4FC1-8E8A-184EF558EF1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A18082FE-DE1C-4FC1-8E8A-184EF558EF1B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9390F8D9-CE3D-4C8B-901E-A32C2320E163}
+	EndGlobalSection
+EndGlobal
