@@ -4,10 +4,14 @@ using Xunit;
 
 namespace BattleshipKata.Tests {
     public class PlayerBoardTests {
+        private readonly PlayerBoard playerBoard;
+
+        public PlayerBoardTests() {
+            playerBoard = new PlayerBoard();
+        }
 
         [Fact]
         public void has_1_carrier_boats() {
-            var playerBoard = new PlayerBoard();
 
             playerBoard.Add(new Carrier());
 
@@ -16,7 +20,6 @@ namespace BattleshipKata.Tests {
 
         [Fact]
         public void has_no_more_than_1_carrier_boats() {
-            var playerBoard = new PlayerBoard();
             playerBoard.Add(new Carrier());
             
             Action action = () => playerBoard.Add(new Carrier());
@@ -26,7 +29,6 @@ namespace BattleshipKata.Tests {
 
         [Fact]
         public void has_2_destroyers_boats() {
-            var playerBoard = new PlayerBoard();
 
             playerBoard.Add(new Destroyer());
             playerBoard.Add(new Destroyer());
@@ -36,7 +38,6 @@ namespace BattleshipKata.Tests {
 
         [Fact]
         public void has_no_more_than_2_destroyers_boats() {
-            var playerBoard = new PlayerBoard();
             playerBoard.Add(new Destroyer());
             playerBoard.Add(new Destroyer());
             
@@ -47,7 +48,6 @@ namespace BattleshipKata.Tests {
 
         [Fact]
         public void has_4_gun_ship_boats() {
-            var playerBoard = new PlayerBoard();
 
             playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());
@@ -59,7 +59,6 @@ namespace BattleshipKata.Tests {
 
         [Fact]
         public void has_no_more_than_4_destroyers_boats() {
-            var playerBoard = new PlayerBoard();
             playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());
@@ -72,7 +71,6 @@ namespace BattleshipKata.Tests {
 
         [Fact]
         public void say_is_not_ready_when_player_is_not_ready() {
-            var playerBoard = new PlayerBoard();
 
             var isReady = playerBoard.IsReady();
 
@@ -81,7 +79,6 @@ namespace BattleshipKata.Tests {
 
         [Fact]
         public void say_is_ready_when_player_is_ready() {
-            var playerBoard = new PlayerBoard();
             playerBoard.Add(new Carrier());
             playerBoard.Add(new Destroyer());
             playerBoard.Add(new Destroyer());

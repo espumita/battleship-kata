@@ -4,11 +4,18 @@ using Xunit;
 
 namespace BattleshipKata.Tests {
     public class BattleshipGameTests {
+        private readonly BattleshipGame game;
+        private readonly Player aPlayer;
+        private readonly Player anotherPlayer;
+
+        public BattleshipGameTests() {
+            game = new BattleshipGame();
+            aPlayer = new Player("Yosh");
+            anotherPlayer = new Player("Bob");
+        }
 
         [Fact]
         public void game_cannot_start_with_at_least_two_players() {
-            var game = new BattleshipGame();
-            var aPlayer = new Player("Yosh");
             game.AddPlayer(aPlayer);
 
             Action action = () => game.Start();
@@ -18,9 +25,6 @@ namespace BattleshipKata.Tests {
 
         [Fact] 
         public void game_cannot_start_until_all_players_set_their_boats() {
-            var game = new BattleshipGame();
-            var aPlayer = new Player("Yosh");
-            var anotherPlayer = new Player("Bob");
             game.AddPlayer(aPlayer);
             game.AddPlayer(anotherPlayer);
 
@@ -31,13 +35,7 @@ namespace BattleshipKata.Tests {
 
         [Fact]
         public void start_the_game_with_all_players_boats() {
-            var game = new BattleshipGame();
-            var aPlayer = new Player("Yosh");
-            var anotherPlayer = new Player("Bob");
-            game.AddPlayer(aPlayer);
-            game.AddPlayer(anotherPlayer);
-            AddAllBoats(game, aPlayer);
-            AddAllBoats(game, anotherPlayer);
+            PrepareGameToStart();
 
             game.Start();
 
@@ -46,13 +44,7 @@ namespace BattleshipKata.Tests {
 
         [Fact]
         public void first_player_start_the_game_with_the_turn() {
-            var game = new BattleshipGame();
-            var aPlayer = new Player("Yosh");
-            var anotherPlayer = new Player("Bob");
-            game.AddPlayer(aPlayer);
-            game.AddPlayer(anotherPlayer);
-            AddAllBoats(game, aPlayer);
-            AddAllBoats(game, anotherPlayer);
+            PrepareGameToStart();
 
             game.Start();
 
@@ -62,13 +54,7 @@ namespace BattleshipKata.Tests {
 
         [Fact]
         public void pass_the_turn_when_a_player_shoots() {
-            var game = new BattleshipGame();
-            var aPlayer = new Player("Yosh");
-            var anotherPlayer = new Player("Bob");
-            game.AddPlayer(aPlayer);
-            game.AddPlayer(anotherPlayer);
-            AddAllBoats(game, aPlayer);
-            AddAllBoats(game, anotherPlayer);
+            PrepareGameToStart();
             game.Start();
 
             var shootResponse = game.PlayerShoots(aPlayer, anotherPlayer);
@@ -78,6 +64,12 @@ namespace BattleshipKata.Tests {
             Assert.Equal("Bob", playerWithTurn);
         }
 
+        private void PrepareGameToStart() {
+            game.AddPlayer(aPlayer);
+            game.AddPlayer(anotherPlayer);
+            AddAllBoats(game, aPlayer);
+            AddAllBoats(game, anotherPlayer);
+        }
 
         private static void AddAllBoats(BattleshipGame game, Player player) {
             game.AddBoat(player, new Carrier());
