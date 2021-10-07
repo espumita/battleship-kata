@@ -1,18 +1,26 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BattleshipKata.Exceptions;
+using BattleshipKata.Messaging;
+using BattleshipKata.Messaging.Error;
 
 namespace BattleshipKata {
     public class BattleshipGame {
-        private Dictionary<string, PlayerBoard> playerBoards;
+        private readonly Dictionary<string, PlayerBoard> playerBoards;
         private string playerWithTurn;
+        private readonly MessageBus messageBus;
 
-        public BattleshipGame() {
+
+        public BattleshipGame(MessageBus messageBus) {
             playerBoards = new Dictionary<string, PlayerBoard>();
+            this.messageBus = messageBus;
         }
 
         public void Start() {
-            if (playerBoards.Keys.Count < 2) throw new GameCannotStartWithAtLeastTwoPlayersException();
+            if (playerBoards.Keys.Count < 2) {
+                messageBus.Publish(new GameCannotStartWithAtLeastTwoPlayersErrorMessage());
+                return;
+            };
             if (!AreAllPlayersBoardsReady()) throw new GameCannotStartUntilAllPLayersSetTheirBoatsException();
             playerWithTurn = playerBoards.Keys.First();
         }
@@ -29,7 +37,8 @@ namespace BattleshipKata {
         public void AddBoat(Player player, Boat boat) {
             playerBoards[player.Name].Add(boat);
         }
-         public string PlayerWithTurn() {
+        
+        public string PlayerWithTurn() {
             return playerWithTurn;
         }
 

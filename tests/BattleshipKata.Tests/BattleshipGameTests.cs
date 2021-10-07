@@ -1,5 +1,8 @@
 ﻿using System;
 using BattleshipKata.Exceptions;
+using BattleshipKata.Messaging;
+using BattleshipKata.Messaging.Error;
+using NSubstitute;
 using Xunit;
 
 namespace BattleshipKata.Tests {
@@ -7,9 +10,13 @@ namespace BattleshipKata.Tests {
         private readonly BattleshipGame game;
         private readonly Player aPlayer;
         private readonly Player anotherPlayer;
+        private MessagesSubscriber subscriber;
 
         public BattleshipGameTests() {
-            game = new BattleshipGame();
+            var messageBus = new InMemoryMessageBus();
+            subscriber = Substitute.For<MessagesSubscriber>();
+            messageBus.SubscribeToMessagesOfType<GameCannotStartWithAtLeastTwoPlayersErrorMessage>(subscriber);
+            game = new BattleshipGame(messageBus);
             aPlayer = new Player("Yosh");
             anotherPlayer = new Player("Bob");
         }
@@ -18,12 +25,12 @@ namespace BattleshipKata.Tests {
         public void game_cannot_start_with_at_least_two_players() {
             game.AddPlayer(aPlayer);
 
-            Action action = () => game.Start();
+            game.Start();
 
-            Assert.Throws<GameCannotStartWithAtLeastTwoPlayersException>(action);
+            subscriber.Received().Notify(Arg.Any<GameCannotStartWithAtLeastTwoPlayersErrorMessage>());
         }
 
-        [Fact] 
+        [Fact]
         public void game_cannot_start_until_all_players_set_their_boats() {
             game.AddPlayer(aPlayer);
             game.AddPlayer(anotherPlayer);
