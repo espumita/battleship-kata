@@ -41,6 +41,8 @@ namespace BattleshipKata {
         }
 
         public ShootResponse PlayerShoots(Player shooter, Player target) {
+            Publish(new PlayerShoots());
+            Publish(new ShootMiss());
             var shootResponse = ShootResponse.Miss;
             playerWithTurn = NextPlayer();
             return shootResponse;

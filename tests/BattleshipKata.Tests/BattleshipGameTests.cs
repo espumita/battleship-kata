@@ -45,7 +45,6 @@ namespace BattleshipKata.Tests {
 
             Assert.Equal(14, game.Boats());
             subscriber.Received().Notify(Arg.Any<GameStarted>());
-
         }
 
         [Fact]
@@ -68,6 +67,8 @@ namespace BattleshipKata.Tests {
             Assert.Equal(ShootResponse.Miss, shootResponse);
             var playerWithTurn = game.PlayerWithTurn();
             Assert.Equal("Bob", playerWithTurn);
+            subscriber.Received().Notify(Arg.Any<PlayerShoots>());
+            subscriber.Received().Notify(Arg.Any<ShootMiss>());
         }
 
         private InMemoryMessageBus GivenAMessageBus() {
@@ -76,6 +77,8 @@ namespace BattleshipKata.Tests {
             messageBus.SubscribeToMessagesOfType<GameCannotStartWithAtLeastTwoPlayersError>(subscriber);
             messageBus.SubscribeToMessagesOfType<GameCannotStartUntilAllPLayersSetTheirBoatsError>(subscriber);
             messageBus.SubscribeToMessagesOfType<GameStarted>(subscriber);
+            messageBus.SubscribeToMessagesOfType<PlayerShoots>(subscriber);
+            messageBus.SubscribeToMessagesOfType<ShootMiss>(subscriber);
             return messageBus;
         }
 
