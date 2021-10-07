@@ -5,6 +5,7 @@ using BattleshipKata.Exceptions;
 namespace BattleshipKata {
     public class BattleshipGame {
         private Dictionary<string, PlayerBoard> playerBoards;
+        private string playerWithTurn;
 
         public BattleshipGame() {
             playerBoards = new Dictionary<string, PlayerBoard>();
@@ -13,6 +14,7 @@ namespace BattleshipKata {
         public void Start() {
             if (playerBoards.Keys.Count < 2) throw new GameCannotStartWithAtLeastTwoPlayersException();
             if (!AreAllPlayersBoardsReady()) throw new GameCannotStartUntilAllPLayersSetTheirBoatsException();
+            playerWithTurn = playerBoards.Keys.First();
         }
 
         public int Boats() {
@@ -26,6 +28,20 @@ namespace BattleshipKata {
 
         public void AddBoat(Player player, Boat boat) {
             playerBoards[player.Name].Add(boat);
+        }
+         public string PlayerWithTurn() {
+            return playerWithTurn;
+        }
+
+        public ShootResponse PlayerShoots(Player shooter, Player target) {
+            var shootResponse = ShootResponse.Miss;
+            playerWithTurn = NextPlayer();
+            return shootResponse;
+        }
+
+        private string NextPlayer() {
+            var firstPlayerWithoutTurn = playerBoards.Keys.First(playerName => !playerName.Equals(playerWithTurn));
+            return firstPlayerWithoutTurn;
         }
 
         private bool AreAllPlayersBoardsReady() {
