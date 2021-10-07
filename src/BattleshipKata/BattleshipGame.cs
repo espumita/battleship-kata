@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using BattleshipKata.Exceptions;
 using BattleshipKata.Messaging;
 using BattleshipKata.Messaging.Errors;
+using BattleshipKata.Messaging.Events;
 
 namespace BattleshipKata {
     public class BattleshipGame {
@@ -17,20 +17,10 @@ namespace BattleshipKata {
         }
 
         public void Start() {
-            if (playerBoards.Keys.Count < 2) {
-                messageBus.Publish(new GameCannotStartWithAtLeastTwoPlayersErrorMessage());
-                return;
-            };
-            if (!AreAllPlayersBoardsReady()) {
-                messageBus.Publish(new GameCannotStartUntilAllPLayersSetTheirBoatsErrorMessage());
-                return;
-            };
+            if (!ThereIsEnoughPlayers()) { Publish(new GameCannotStartWithAtLeastTwoPlayersError()); return; }
+            if (!AreAllPlayersBoardsReady()) { Publish(new GameCannotStartUntilAllPLayersSetTheirBoatsError()); return; }
             playerWithTurn = playerBoards.Keys.First();
-        }
-
-        public int Boats() {
-            return playerBoards.Keys.Select(playerName => playerBoards[playerName])
-                .Sum(playerBoard => playerBoard.NumberOfBoats());
+            Publish(new GameStarted());
         }
 
         public void AddPlayer(Player player) {
@@ -40,7 +30,12 @@ namespace BattleshipKata {
         public void AddBoat(Player player, Boat boat) {
             playerBoards[player.Name].Add(boat);
         }
-        
+
+        public int Boats() {
+            return playerBoards.Keys.Select(playerName => playerBoards[playerName])
+                .Sum(playerBoard => playerBoard.NumberOfBoats());
+        }
+
         public string PlayerWithTurn() {
             return playerWithTurn;
         }
@@ -51,15 +46,25 @@ namespace BattleshipKata {
             return shootResponse;
         }
 
-        private string NextPlayer() {
-            var firstPlayerWithoutTurn = playerBoards.Keys.First(playerName => !playerName.Equals(playerWithTurn));
-            return firstPlayerWithoutTurn;
+        private bool ThereIsEnoughPlayers() {
+            return playerBoards.Keys.Count >= 2;
+        }
+
+        private void Publish(Message message) {
+            messageBus.Publish(message);
         }
 
         private bool AreAllPlayersBoardsReady() {
             return playerBoards.Keys.Select(playerName => playerBoards[playerName])
                 .All(playerBoard => playerBoard.IsReady());
         }
+
+        private string NextPlayer() {
+            var firstPlayerWithoutTurn = playerBoards.Keys.First(playerName => !playerName.Equals(playerWithTurn));
+            return firstPlayerWithoutTurn;
+        }
+
+
 
     }
 
