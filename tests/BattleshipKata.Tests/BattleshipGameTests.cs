@@ -41,16 +41,13 @@ namespace BattleshipKata.Tests {
 
             game.Start();
 
-            Assert.Equal(20, game.Boats());
+            Assert.Equal(14, game.Boats());
         }
 
         private static void AddAllBoats(BattleshipGame game, Player player) {
             game.AddBoat(player, new Carrier());
-            game.AddBoat(player, new Carrier());
             game.AddBoat(player, new Destroyer());
             game.AddBoat(player, new Destroyer());
-            game.AddBoat(player, new Destroyer());
-            game.AddBoat(player, new GunShip());
             game.AddBoat(player, new GunShip());
             game.AddBoat(player, new GunShip());
             game.AddBoat(player, new GunShip());

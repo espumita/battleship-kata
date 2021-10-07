@@ -6,19 +6,17 @@ namespace BattleshipKata.Tests {
     public class PlayerBoardTests {
 
         [Fact]
-        public void has_2_carrier_boats() {
+        public void has_1_carrier_boats() {
             var playerBoard = new PlayerBoard();
 
             playerBoard.Add(new Carrier());
-            playerBoard.Add(new Carrier());
 
-            Assert.Equal(2, playerBoard.NumberOfBoats());
+            Assert.Equal(1, playerBoard.NumberOfBoats());
         }
 
         [Fact]
-        public void has_no_more_than_2_carrier_boats() {
+        public void has_no_more_than_1_carrier_boats() {
             var playerBoard = new PlayerBoard();
-            playerBoard.Add(new Carrier());
             playerBoard.Add(new Carrier());
             
             Action action = () => playerBoard.Add(new Carrier());
@@ -27,20 +25,18 @@ namespace BattleshipKata.Tests {
         }
 
         [Fact]
-        public void has_3_destroyers_boats() {
+        public void has_2_destroyers_boats() {
             var playerBoard = new PlayerBoard();
 
             playerBoard.Add(new Destroyer());
             playerBoard.Add(new Destroyer());
-            playerBoard.Add(new Destroyer());
 
-            Assert.Equal(3, playerBoard.NumberOfBoats());
+            Assert.Equal(2, playerBoard.NumberOfBoats());
         }
 
         [Fact]
-        public void has_no_more_than_3_destroyers_boats() {
+        public void has_no_more_than_2_destroyers_boats() {
             var playerBoard = new PlayerBoard();
-            playerBoard.Add(new Destroyer());
             playerBoard.Add(new Destroyer());
             playerBoard.Add(new Destroyer());
             
@@ -50,22 +46,20 @@ namespace BattleshipKata.Tests {
         }
 
         [Fact]
-        public void has_5_gun_ship_boats() {
+        public void has_4_gun_ship_boats() {
             var playerBoard = new PlayerBoard();
 
             playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());
-            playerBoard.Add(new GunShip());
 
-            Assert.Equal(5, playerBoard.NumberOfBoats());
+            Assert.Equal(4, playerBoard.NumberOfBoats());
         }
 
         [Fact]
-        public void has_no_more_than_5_destroyers_boats() {
+        public void has_no_more_than_4_destroyers_boats() {
             var playerBoard = new PlayerBoard();
-            playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());
@@ -89,11 +83,8 @@ namespace BattleshipKata.Tests {
         public void say_is_ready_when_player_is_ready() {
             var playerBoard = new PlayerBoard();
             playerBoard.Add(new Carrier());
-            playerBoard.Add(new Carrier());
             playerBoard.Add(new Destroyer());
             playerBoard.Add(new Destroyer());
-            playerBoard.Add(new Destroyer());
-            playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());
             playerBoard.Add(new GunShip());

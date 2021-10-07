@@ -20,17 +20,17 @@ namespace BattleshipKata {
         }
 
         private void TryToAdd(Carrier carrier) {
-            if (carriers.Count >= 2) throw new PlayerCannotHasMoreBoatsOfThatTypeException();
+            if (carriers.Count >= 1) throw new PlayerCannotHasMoreBoatsOfThatTypeException();
             carriers.Add(carrier);
         }
 
         private void TryToAdd(Destroyer destroyer) {
-            if (destroyers.Count >= 3) throw new PlayerCannotHasMoreBoatsOfThatTypeException();
+            if (destroyers.Count >= 2) throw new PlayerCannotHasMoreBoatsOfThatTypeException();
             destroyers.Add(destroyer);
         }
 
         private void TryToAdd(GunShip gunShip) {
-            if (gunships.Count >= 5) throw new PlayerCannotHasMoreBoatsOfThatTypeException();
+            if (gunships.Count >= 4) throw new PlayerCannotHasMoreBoatsOfThatTypeException();
             gunships.Add(gunShip);
         }
 
@@ -39,9 +39,9 @@ namespace BattleshipKata {
         }
 
         public bool IsReady() {
-            return carriers.Count == 2 
-                   && destroyers.Count == 3 
-                   && gunships.Count == 5;
+            return carriers.Count == 1
+                   && destroyers.Count == 2 
+                   && gunships.Count == 4;
         }
     }
 }
