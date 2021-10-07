@@ -1,7 +1,7 @@
 ﻿using System;
 using BattleshipKata.Exceptions;
 using BattleshipKata.Messaging;
-using BattleshipKata.Messaging.Error;
+using BattleshipKata.Messaging.Errors;
 using NSubstitute;
 using Xunit;
 
@@ -13,9 +13,7 @@ namespace BattleshipKata.Tests {
         private MessagesSubscriber subscriber;
 
         public BattleshipGameTests() {
-            var messageBus = new InMemoryMessageBus();
-            subscriber = Substitute.For<MessagesSubscriber>();
-            messageBus.SubscribeToMessagesOfType<GameCannotStartWithAtLeastTwoPlayersErrorMessage>(subscriber);
+            var messageBus = GivenAMessageBus();
             game = new BattleshipGame(messageBus);
             aPlayer = new Player("Yosh");
             anotherPlayer = new Player("Bob");
@@ -35,9 +33,9 @@ namespace BattleshipKata.Tests {
             game.AddPlayer(aPlayer);
             game.AddPlayer(anotherPlayer);
 
-            Action action = () => game.Start();
+            game.Start();
 
-            Assert.Throws<GameCannotStartUntilAllPLayersSetTheirBoatsException>(action);
+            subscriber.Received().Notify(Arg.Any<GameCannotStartUntilAllPLayersSetTheirBoatsErrorMessage>());
         }
 
         [Fact]
@@ -69,6 +67,14 @@ namespace BattleshipKata.Tests {
             Assert.Equal(ShootResponse.Miss, shootResponse);
             var playerWithTurn = game.PlayerWithTurn();
             Assert.Equal("Bob", playerWithTurn);
+        }
+
+        private InMemoryMessageBus GivenAMessageBus() {
+            var messageBus = new InMemoryMessageBus();
+            subscriber = Substitute.For<MessagesSubscriber>();
+            messageBus.SubscribeToMessagesOfType<GameCannotStartWithAtLeastTwoPlayersErrorMessage>(subscriber);
+            messageBus.SubscribeToMessagesOfType<GameCannotStartUntilAllPLayersSetTheirBoatsErrorMessage>(subscriber);
+            return messageBus;
         }
 
         private void PrepareGameToStart() {

@@ -2,7 +2,7 @@
 using System.Linq;
 using BattleshipKata.Exceptions;
 using BattleshipKata.Messaging;
-using BattleshipKata.Messaging.Error;
+using BattleshipKata.Messaging.Errors;
 
 namespace BattleshipKata {
     public class BattleshipGame {
@@ -21,7 +21,10 @@ namespace BattleshipKata {
                 messageBus.Publish(new GameCannotStartWithAtLeastTwoPlayersErrorMessage());
                 return;
             };
-            if (!AreAllPlayersBoardsReady()) throw new GameCannotStartUntilAllPLayersSetTheirBoatsException();
+            if (!AreAllPlayersBoardsReady()) {
+                messageBus.Publish(new GameCannotStartUntilAllPLayersSetTheirBoatsErrorMessage());
+                return;
+            };
             playerWithTurn = playerBoards.Keys.First();
         }
 

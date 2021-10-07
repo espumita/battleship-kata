@@ -1,4 +1,4 @@
-﻿namespace BattleshipKata.Messaging.Error {
+﻿namespace BattleshipKata.Messaging.Errors {
     public interface ErrorMessage : Message {
         
     }

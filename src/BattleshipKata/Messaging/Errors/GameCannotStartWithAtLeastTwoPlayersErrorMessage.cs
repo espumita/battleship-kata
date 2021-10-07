@@ -1,4 +1,4 @@
-﻿namespace BattleshipKata.Messaging.Error {
+﻿namespace BattleshipKata.Messaging.Errors {
     public class GameCannotStartWithAtLeastTwoPlayersErrorMessage : ErrorMessage {
 
     }
