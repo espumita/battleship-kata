@@ -79,3 +79,4 @@ Sunk ships have all their coordinates marked with an uppercase X and hit cells h
 
 ### Hardcore enhancement (optional)
  - Implement an AI player
+ 
